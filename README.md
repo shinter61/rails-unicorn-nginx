@@ -8,8 +8,8 @@ docker + nginx + unicorn + rails で環境構築したリポジトリ
 
 2. db_developmentが無いとエラーを吐くので手動で作る
 docker exec -it mysql mysql -u root -p
->> password
->> create database db_development;
+password
+create database db_development;
 
 3. docker-compose down
 
