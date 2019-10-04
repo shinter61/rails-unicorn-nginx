@@ -1,0 +1,41 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./containers_data/mysql:/var/lib/mysql
+
+  rails:
+    build:
+      context: .
+      dockerfile: ./docker/rails/Dockerfile
+    container_name: rails
+    command: bundle exec unicorn -p 3000 -c config/unicorn.rb
+    environment:
+      RAILS_ENV: development
+    volumes:
+      - ./:/unicorn_practice
+    ports:
+      - "3000:3000"
+    links:
+      - mysql
+    depends_on:
+      - mysql
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./containers_data/nginx:/var/log/nginx
+    links:
+      - rails
