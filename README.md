@@ -1,24 +1,18 @@
-# README
+## 概要
+docker + nginx + unicorn + rails で環境構築したリポジトリ
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 起動
+カレントディレクトリは /unicorn_practice とする
 
-Things you may want to cover:
+1. docker-compose up
 
-* Ruby version
+2. db_developmentが無いとエラーを吐くので手動で作る
+docker exec -it mysql mysql -u root -p
+>> password
+>> create database db_development;
 
-* System dependencies
+3. docker-compose down
 
-* Configuration
+4. docker-compose up
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+5. http://127.0.0.1
